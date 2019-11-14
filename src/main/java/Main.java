@@ -27,14 +27,14 @@ public class Main {
         Graph graph = GraphImport.load(datasetName, delim, debug);
 
 
-        Result result = new Result();
-        result.setAlgorithmName("TrussDecomp");
-        result.setDatasetName(datasetName);
+//        Result result = new Result();
+//        result.setAlgorithmName("TrussDecomp");
+//        result.setDatasetName(datasetName);
 
         //print result
-        if (printResult) {
-            Export.writeFile(result, debug);
-        }
+//        if (printResult) {
+//            Export.writeFile(result, debug);
+//        }
 
     }
 
