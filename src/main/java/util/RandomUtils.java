@@ -49,6 +49,15 @@ public class RandomUtils {
     }
 
 
+    public static TreeSet<Edge> getRandomSetFromSet(TreeSet<Edge> edgeList, int nums) {
+        TreeSet<Edge> deltaEdges = new TreeSet<>();
+
+
+
+
+
+        return deltaEdges;
+    }
 
 }
 

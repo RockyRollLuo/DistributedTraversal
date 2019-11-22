@@ -1,8 +1,11 @@
 package util;
 
-import java.util.TreeSet;
+import java.io.Serializable;
+import java.util.LinkedList;
 
-public class Edge implements Comparable<Edge>, Cloneable {
+
+public class Edge implements Comparable<Edge>, Cloneable, Serializable {
+
 
     private int v1;
     private int v2;
@@ -32,7 +35,7 @@ public class Edge implements Comparable<Edge>, Cloneable {
     @Override
     public int hashCode() {
         int hash=0;
-        hash=v1+v2*17+v1*v2;
+        hash=v1*31+v2;
         return hash;
     }
 
@@ -72,8 +75,10 @@ public class Edge implements Comparable<Edge>, Cloneable {
         Edge e2 = new Edge(0, 2);
         Edge e3 = new Edge(0, 1);
         Edge e4 = new Edge(1, 4);
+        Edge e5 = new Edge(3, 7);
 
-        TreeSet<Edge> set = new TreeSet<>();
+//        TreeSet<Edge> set = new TreeSet<>();
+        LinkedList<Edge> set = new LinkedList<>();
         set.add(e1);
         set.add(e2);
         set.add(e3);
@@ -81,6 +86,7 @@ public class Edge implements Comparable<Edge>, Cloneable {
 
         System.out.println(set);
         set.remove(e1);
+        set.add(e5);
         System.out.println(set);
         set.remove(e2);
         System.out.println(set);
@@ -92,17 +98,14 @@ public class Edge implements Comparable<Edge>, Cloneable {
         set.remove(e1);
         System.out.println(set);
 
+        if (e1.equals(e2)) {
+            System.out.println("true");
+        } else {
+            System.out.println("false");
+        }
 
-
-//
-//        if (e1.equals(e2)) {
-//            System.out.println("true");
-//        } else {
-//            System.out.println("false");
-//        }
-//
-//        System.out.printf("e1.hashcode:%s:%n",e1.hashCode());
-//        System.out.printf("e2.hashcode:%s:%n",e2.hashCode());
-//        System.out.printf("e3.hashcode:%s:%n",e3.hashCode());
+        System.out.printf("e1.hashcode:%s:%n",e1.hashCode());
+        System.out.printf("e2.hashcode:%s:%n",e2.hashCode());
+        System.out.printf("e3.hashcode:%s:%n",e3.hashCode());
     }
 }

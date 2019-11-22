@@ -1,13 +1,15 @@
 package util;
 
 import java.util.Hashtable;
-import java.util.TreeSet;
+import java.util.LinkedList;
 
 public class Graph implements Cloneable{
-    private Hashtable<Integer, TreeSet<Integer>> adjMap;
+    private Hashtable<Integer, LinkedList<Integer>> adjMap;
+    private LinkedList<Edge> edgeSet;
 
-    public Graph(Hashtable<Integer, TreeSet<Integer>> adjMap) {
+    public Graph(Hashtable<Integer, LinkedList<Integer>> adjMap, LinkedList<Edge> edgeSet) {
         this.adjMap = adjMap;
+        this.edgeSet = edgeSet;
     }
 
     @Override
@@ -17,23 +19,31 @@ public class Graph implements Cloneable{
 
     @Override
     public Graph clone(){
-        Hashtable<Integer, TreeSet<Integer>> newAdjMap = new Hashtable<>();
+        LinkedList<Edge> newEdgeSet = (LinkedList<Edge>) edgeSet.clone();
+        Hashtable<Integer, LinkedList<Integer>> newAdjMap = new Hashtable<>();
         for (int i : adjMap.keySet()) {
-            TreeSet<Integer> adjList = (TreeSet<Integer>) adjMap.get(i).clone();
+            LinkedList<Integer> adjList = (LinkedList<Integer>) adjMap.get(i).clone();
             newAdjMap.put(i, adjList);
         }
-        return new Graph(newAdjMap);
+        return new Graph(newAdjMap, newEdgeSet);
     }
 
     /**
      * Getter() and Setter()
      */
-    public Hashtable<Integer, TreeSet<Integer>> getAdjMap() {
+    public Hashtable<Integer, LinkedList<Integer>> getAdjMap() {
         return adjMap;
     }
 
-    public void setAdjMap(Hashtable<Integer, TreeSet<Integer>> adjMap) {
+    public void setAdjMap(Hashtable<Integer, LinkedList<Integer>> adjMap) {
         this.adjMap = adjMap;
     }
 
+    public LinkedList<Edge> getEdgeSet() {
+        return edgeSet;
+    }
+
+    public void setEdgeSet(LinkedList<Edge> edgeSet) {
+        this.edgeSet = edgeSet;
+    }
 }
