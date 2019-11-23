@@ -1,0 +1,8 @@
+2019-11-23 22:20:10 [Thread:main][ Class:util.GraphImport >> Method: util.GraphImport.load(GraphImport.java:31) ]
+INFO:loading graph...: datasets\test4.txt
+2019-11-23 22:20:10 [Thread:main][ Class:util.GraphImport >> Method: util.GraphImport.load(GraphImport.java:75) ]
+INFO:graph was loaded: datasets\test4.txt
+2019-11-23 22:20:10 [Thread:main][ Class:util.Export >> Method: util.Export.writeFile(Export.java:31) ]
+INFO:Exporting graph... 
+2019-11-23 22:20:10 [Thread:main][ Class:util.Export >> Method: util.Export.writeFile(Export.java:44) ]
+INFO:Graph was exported.: outputs\CoreDecomp_test4.txt

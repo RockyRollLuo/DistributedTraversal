@@ -4,6 +4,7 @@ import org.apache.log4j.Logger;
 import util.Graph;
 
 import java.util.Hashtable;
+import java.util.LinkedList;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -18,7 +19,7 @@ public class Traversal {
     }
 
     public void computePCD() {
-        Hashtable<Integer, TreeSet<Integer>> adjMap = graph.getAdjMap();
+        Hashtable<Integer, LinkedList<Integer>> adjMap = graph.getAdjMap();
 
         for (Integer node:adjMap.keySet()) {
 

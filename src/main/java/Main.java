@@ -1,3 +1,4 @@
+import algorithms.CoreDecomposition;
 import util.*;
 import util.SetOpt.Option;
 
@@ -26,15 +27,14 @@ public class Main {
         String datasetName = args[0];
         Graph graph = GraphImport.load(datasetName, delim, debug);
 
-
-//        Result result = new Result();
-//        result.setAlgorithmName("TrussDecomp");
-//        result.setDatasetName(datasetName);
+        CoreDecomposition coreDecomposition = new CoreDecomposition(graph);
+        Result result = coreDecomposition.run();
+        result.setDatasetName(datasetName);
 
         //print result
-//        if (printResult) {
-//            Export.writeFile(result, debug);
-//        }
+        if (printResult) {
+            Export.writeFile(result, debug);
+        }
 
     }
 

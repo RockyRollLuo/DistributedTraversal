@@ -1,8 +1,10 @@
 package algorithms;
 
 import org.apache.log4j.Logger;
+import sun.security.krb5.internal.crypto.RsaMd5CksumType;
 import util.Graph;
 import util.GraphHandler;
+import util.Result;
 
 import java.util.Hashtable;
 import java.util.LinkedList;
@@ -17,7 +19,9 @@ public class CoreDecomposition {
         this.graph = graph;
     }
 
-    public void run() {
+    public Result run() {
+        long startTime = System.currentTimeMillis();
+
         Hashtable<Integer, LinkedList<Integer>> adjMap = graph.getAdjMap();
 
         Hashtable<Integer, LinkedList<Integer>> tempAdjMap = new Hashtable<Integer, LinkedList<Integer>>();
@@ -25,25 +29,24 @@ public class CoreDecomposition {
             LinkedList<Integer> adjList = adjMap.get(node);
             tempAdjMap.put(node, (LinkedList<Integer>) adjList.clone());
         }
-        Set<Integer> nodeSet = adjMap.keySet();
 
-        //degMap
+        //initial degMap
         Hashtable<Integer, Integer> degMap = new Hashtable<>();
-        for (Integer node : nodeSet) {
-            degMap.put(node, adjMap.get(node).size());
+        for (Integer node : tempAdjMap.keySet()) {
+            degMap.put(node, tempAdjMap.get(node).size());
         }
 
         //coreMap
-        LinkedList<Integer> remainNodes = new LinkedList<>(adjMap.keySet());
         Hashtable<Integer, Integer> coreMap = new Hashtable<>();
-        for (int i = 1; ; ) {
 
-            if (remainNodes.isEmpty()) {
+        for (int i = 0; ; i++) {
+
+            if (tempAdjMap.isEmpty()) {
                 break;
             }
 
             LinkedList<Integer> delQueue = new LinkedList<>();
-            for (Integer node : remainNodes) {
+            for (Integer node : tempAdjMap.keySet()) {
                 if (tempAdjMap.get(node).size() <= i) {
                     delQueue.offer(node);
                 }
@@ -52,24 +55,21 @@ public class CoreDecomposition {
             while (!delQueue.isEmpty()) {
                 Integer node_delQue = delQueue.poll();
 
-                tempAdjMap = GraphHandler.removeNodeFromAdjMap(tempAdjMap, node_delQue);
-                for (Integer remainNode : tempAdjMap.keySet()) {
-
-
+                LinkedList<Integer> del_node_neigbors = tempAdjMap.get(node_delQue);
+                if (del_node_neigbors != null) {
+                    for (Integer del_node_neighbor : del_node_neigbors) {
+                        tempAdjMap.get(del_node_neighbor).remove(node_delQue);
+                        if (tempAdjMap.get(del_node_neighbor).size() <= i) {
+                            delQueue.offer(del_node_neighbor);
+                        }
+                    }
                 }
-
+                tempAdjMap.remove(node_delQue);
                 coreMap.put(node_delQue, i);
-                remainNodes.remove(node_delQue);
-
-
-
             }
-
-
         }
 
-
+        return new Result(coreMap, System.currentTimeMillis() - startTime, "CoreDecomp");
     }
-
 
 }
