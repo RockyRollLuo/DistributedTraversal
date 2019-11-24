@@ -5,6 +5,14 @@ import java.util.LinkedList;
 import java.util.Set;
 
 public class GraphHandler {
+    public static Hashtable<Integer,LinkedList<Integer>> deepCloneAdjMap(Hashtable<Integer,LinkedList<Integer>> adjMap) {
+        Hashtable<Integer, LinkedList<Integer>> newAdjMap = new Hashtable<>();
+        for (Integer i : adjMap.keySet()) {
+            LinkedList<Integer> adjList = adjMap.get(i);
+            newAdjMap.put(i, (LinkedList<Integer>) adjList.clone());
+        }
+        return newAdjMap;
+    }
 
     /**
      * remove one edge from adjMap

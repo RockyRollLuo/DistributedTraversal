@@ -20,15 +20,12 @@ public class CoreDecomposition {
     }
 
     public Result run() {
+        LOGGER.info("Starting Core Decomposition");
+
         long startTime = System.currentTimeMillis();
 
         Hashtable<Integer, LinkedList<Integer>> adjMap = graph.getAdjMap();
-
-        Hashtable<Integer, LinkedList<Integer>> tempAdjMap = new Hashtable<Integer, LinkedList<Integer>>();
-        for (Integer node : adjMap.keySet()) {
-            LinkedList<Integer> adjList = adjMap.get(node);
-            tempAdjMap.put(node, (LinkedList<Integer>) adjList.clone());
-        }
+        Hashtable<Integer, LinkedList<Integer>> tempAdjMap = GraphHandler.deepCloneAdjMap(adjMap);
 
         //initial degMap
         Hashtable<Integer, Integer> degMap = new Hashtable<>();
